@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Leintist Academy — Galeri Komunitas</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ========= Variables & Base ========= */
+    :root{
+      --bg: #070617;
+      --panel: rgba(8,10,20,0.6);
+      --card: #0b1220;
+      --accent-cyan: #00f0ff;
+      --accent-pink: #ff45d6;
+      --accent-amber: #f6b73b;
+      --muted: #9aa4b2;
+      --glass: rgba(255,255,255,0.03);
+      --glass-strong: rgba(255,255,255,0.06);
+    }
+    [data-theme="light"]{
+      --bg: linear-gradient(180deg,#f3f4f6,#eaeef6);
+      --panel: rgba(255,255,255,0.88);
+      --card: #ffffff;
+      --accent-cyan: #066a6a;
+      --accent-pink: #8b0066;
+      --accent-amber: #b7791f;
+      --muted: #374151;
+      --glass: rgba(0,0,0,0.04);
+      --glass-strong: rgba(0,0,0,0.06);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      background: var(--bg);
+      color:var(--muted);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+
+    /* ========= Background Visuals (NEXUS style) ========= */
+    .cyber-bg{position:fixed;inset:0;z-index:-10;overflow:hidden}
+    .cyber-gradient{
+      position:absolute;inset:-30% ;background:
+      radial-gradient(600px 400px at 10% 20%, rgba(0,240,255,0.09), transparent 12%),
+      radial-gradient(700px 500px at 90% 80%, rgba(255,69,214,0.06), transparent 12%),
+      radial-gradient(400px 300px at 60% 30%, rgba(246,183,59,0.04), transparent 12%);
+      filter: blur(40px);
+      animation: rotateGrad 30s linear infinite;
+    }
+    @keyframes rotateGrad {0%{transform:rotate(0)}50%{transform:rotate(180deg) scale(1.08)}100%{transform:rotate(360deg)}}
+
+    .matrix-rain{position:absolute;inset:0;pointer-events:none;opacity:0.12}
+    .matrix-column{position:absolute;top:-120vh;font-family:monospace;white-space:pre; font-size:12px;color:var(--accent-cyan);text-shadow:0 0 8px rgba(0,240,255,0.25);animation:matrixFall linear infinite}
+    @keyframes matrixFall{0%{transform:translateY(-120vh)}100%{transform:translateY(120vh)}}
+
+    .orb{position:fixed;border-radius:50%;filter:blur(80px);opacity:0.45;pointer-events:none;z-index:-5}
+    .orb1{width:360px;height:360px;background:var(--accent-cyan);left:-140px;top:6%}
+    .orb2{width:420px;height:420px;background:var(--accent-pink);right:-180px;bottom:6%}
+    .orb3{width:280px;height:280px;background:var(--accent-amber);left:50%;top:50%;transform:translate(-50%,-50%)}
+
+    .particles{position:fixed;inset:0;z-index:-8;pointer-events:none}
+    .particle{position:absolute;width:4px;height:4px;border-radius:50%;background:var(--accent-cyan);box-shadow:0 0 10px currentColor;opacity:0.7}
+
+    /* subtle grid */
+    .grid-overlay{position:fixed;inset:0;z-index:-9;pointer-events:none}
+    .grid-lines{position:absolute;inset:0;background-image:
+      linear-gradient(rgba(0,240,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,69,214,0.02) 1px, transparent 1px);background-size:60px 60px;opacity:0.28}
+
+    /* ========= Top Nav (glassmorphism) ========= */
+    nav.main-nav{
+      position:sticky;top:12px;margin:12px auto;max-width:1200px;padding:10px 14px;border-radius:14px;background:var(--panel);backdrop-filter:blur(10px);box-shadow:0 6px 30px rgba(0,0,0,0.45);display:flex;align-items:center;gap:12px;z-index:40; border:1px solid rgba(255,255,255,0.03)
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand .logo{
+      display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent-cyan),var(--accent-pink));color:#07101a;font-weight:700;font-family:Orbitron, sans-serif;font-size:18px;box-shadow:0 8px 30px rgba(0,240,255,0.06)
+    }
+    .brand .title{font-family:Orbitron, sans-serif;color:var(--accent-amber);font-size:18px;letter-spacing:0.6px}
+    .nav-links{display:flex;gap:18px;align-items:center;margin-left:18px}
+    .nav-links a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:8px;font-weight:600;transition:all .18s}
+    .nav-links a:hover{color:var(--accent-cyan);text-shadow:0 0 12px rgba(0,240,255,0.08)}
+    .nav-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+    .icon-btn{background:transparent;border:1px solid rgba(255,255,255,0.03);padding:8px;border-radius:10px;cursor:pointer;color:var(--muted);transition:all .15s}
+    .icon-btn:hover{transform:translateY(-3px);box-shadow:0 6px 30px rgba(0,240,255,0.06);border-color:rgba(0,240,255,0.08)}
+    .cta-btn{background:linear-gradient(90deg,var(--accent-cyan),var(--accent-pink));color:#07101a;padding:10px 14px;border-radius:12px;font-weight:700;border:0;cursor:pointer;box-shadow:0 8px 30px rgba(0,240,255,0.12)}
+    .cta-btn:hover{transform:translateY(-3px)}
+
+    /* mobile menu */
+    .mobile-toggle{display:none}
+
+    /* ========= Layout Container ========= */
+    .container{max-width:1200px;margin:28px auto;padding:18px;position:relative;z-index:10}
+
+    /* hero small */
+    .hero{
+      padding:26px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);display:flex;align-items:center;gap:18px;margin-bottom:18px;
+    }
+    .hero .left{flex:1}
+    .hero h2{font-family:Orbitron;font-size:20px;color:var(--accent-cyan);margin-bottom:6px}
+    .hero p{color:var(--muted);font-size:14px}
+
+    /* ========= Controls (filter, upload, shuffle) ========= */
+    .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:16px 0}
+    .controls .filter-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:10px;color:var(--muted);cursor:pointer;transition:all .16s}
+    .controls .filter-btn.active{background:linear-gradient(90deg,var(--accent-cyan),var(--accent-pink));color:#07101a;border-color:transparent;box-shadow:0 10px 30px rgba(0,240,255,0.08)}
+    .controls .upload-label{display:inline-flex;align-items:center;gap:8px;background:var(--glass);padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);cursor:pointer}
+    .controls .small{font-size:13px;color:var(--muted)}
+
+    /* ========= Gallery Grid ========= */
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:6px}
+    .gallery-item{position:relative;border-radius:12px;overflow:hidden;background:linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.28));border:1px solid rgba(255,255,255,0.03);cursor:pointer;transition:transform .3s,box-shadow .3s}
+    .gallery-item:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(0,0,0,0.45)}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s cubic-bezier(.2,.9,.3,1)}
+    .gallery-item:hover img{transform:scale(1.08)}
+    .gallery-caption{position:absolute;left:12px;bottom:12px;padding:6px 10px;border-radius:8px;background:linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.52));color:#fff;font-size:13px}
+    .tag-pill{position:absolute;right:12px;top:12px;background:rgba(0,0,0,0.35);padding:6px 8px;border-radius:8px;color:var(--muted);font-size:12px;border:1px solid rgba(255,255,255,0.02)}
+
+    /* ========= Lightbox (modal) ========= */
+    .lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(3,6,12,0.85), rgba(3,6,12,0.94));z-index:300}
+    .lightbox.show{display:flex;animation:fadeIn .18s ease}
+    @keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
+    .lb-inner{max-width:1200px;width:100%;display:flex;gap:18px;padding:18px}
+    .lb-media{flex:1;display:flex;align-items:center;justify-content:center;background:var(--card);border-radius:12px;overflow:hidden;min-height:60vh;position:relative}
+    .lb-media img{max-width:100%;max-height:82vh;object-fit:contain;display:block}
+    .lb-side{width:320px;max-height:82vh;overflow:auto;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03)}
+    .lb-side h3{color:var(--accent-amber);margin-bottom:6px}
+    .lb-side p{color:var(--muted);font-size:14px}
+    .lb-thumbs{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .thumb{width:64px;height:44px;border-radius:8px;overflow:hidden;border:2px solid transparent;opacity:.8;cursor:pointer}
+    .thumb img{width:100%;height:100%;object-fit:cover}
+    .thumb.active{border-color:linear-gradient(90deg,var(--accent-cyan),var(--accent-pink));opacity:1;box-shadow:0 8px 24px rgba(0,240,255,0.06)}
+
+    .lb-close{position:absolute;top:12px;right:12px;background:transparent;border:0;color:var(--muted);font-size:28px;cursor:pointer}
+    .nav-arrows{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:28px;background:transparent;border:0;color:var(--muted);cursor:pointer}
+    .nav-arrows.right{left:auto;right:12px}
+
+    /* footer small */
+    .footer-note{text-align:center;margin:28px 0;color:var(--muted);font-size:13px}
+
+    /* small screens */
+    @media (max-width:900px){
+      .lb-inner{flex-direction:column}
+      .lb-side{width:100%;max-height:40vh}
+      .nav-links{display:none}
+      .mobile-toggle{display:inline-flex}
+      nav.main-nav{padding:12px}
+    }
+  </style>
+</head>
+<body data-theme="dark">
+
+  <!-- Background visuals -->
+  <div class="cyber-bg" aria-hidden="true">
+    <div class="cyber-gradient"></div>
+    <div class="matrix-rain" id="matrixRain"></div>
+    <div class="grid-overlay"><div class="grid-lines"></div></div>
+    <div class="particles" id="particlesContainer"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+
+  <!-- Top Nav -->
+  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+    <div class="brand" role="banner">
+      <div class="logo">LA</div>
+      <div>
+        <div class="title">Leintist Academy</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px">Gallery — Community</div>
+      </div>
+    </div>
+
+    <div class="nav-links" role="menubar" aria-hidden="false">
+      <a href="#community" role="menuitem">Galeri</a>
+      <a href="#events" role="menuitem">Events</a>
+      <a href="#about" role="menuitem">Tentang</a>
+      <a href="#contact" role="menuitem">Kontak</a>
+    </div>
+
+    <div class="nav-actions" role="region" aria-label="Aksi">
+      <label class="upload-label" for="uploadInput" title="Upload foto baru">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:6px"><path d="M12 3v12" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><path d="M8 7l4-4 4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="15" width="18" height="6" rx="2" stroke="#fff" stroke-width="1.2"/></svg>
+        <span class="small">Upload</span>
+      </label>
+
+      <button class="icon-btn" id="themeToggle" title="Toggle theme">🌙</button>
+      <button class="icon-btn" id="shuffleBtn" title="Acak galeri">🔀</button>
+      <button class="cta-btn" id="joinBtn">Join</button>
+    </div>
+  </nav>
+
+  <main class="container" id="community">
+    <!-- hero minimal -->
+    <div class="hero" role="region" aria-label="intro">
+      <div class="left">
+        <h2>Galeri Komunitas</h2>
+        <p>Dokumentasi kegiatan, event, dan momen komunitas Leintist Academy — kirim fotomu melalui tombol Upload.</p>
+      </div>
+      <div style="min-width:160px;text-align:right">
+        <div style="font-size:12px;color:var(--muted)">Tips: gunakan JPEG/PNG. Maks 10MB per foto.</div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls" role="toolbar" aria-label="Filter galeri">
+      <button class="filter-btn active" data-filter="all">Semua</button>
+      <button class="filter-btn" data-filter="event">Event</button>
+      <button class="filter-btn" data-filter="meet">Pertemuan</button>
+      <button class="filter-btn" data-filter="art">Karya</button>
+
+      <div style="flex:1"></div>
+
+      <label class="upload-label" for="uploadInput" title="Upload foto baru">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:6px"><path d="M12 3v12" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><path d="M8 7l4-4 4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="15" width="18" height="6" rx="2" stroke="#fff" stroke-width="1.2"/></svg>
+        Upload Foto
+      </label>
+
+      <input type="file" id="uploadInput" accept="image/*" multiple style="display:none">
+    </div>
+
+    <!-- Gallery Grid -->
+    <section class="gallery-grid" id="gallery" aria-live="polite"></section>
+
+    <div class="footer-note">Leintist Academy • © <span id="year"></span></div>
+  </main>
+
+  <!-- Lightbox / Modal -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="lb-inner" role="document">
+      <button class="nav-arrows left" id="prevBtn" aria-label="Sebelumnya">◀</button>
+      <div class="lb-media" id="lbMedia">
+        <button class="lb-close" id="lbClose" aria-label="Tutup">✕</button>
+        <img id="lbImage" src="" alt="">
+      </div>
+
+      <aside class="lb-side" id="lbSide">
+        <h3 id="lbTitle">Judul Foto</h3>
+        <p id="lbDesc">Keterangan singkat foto. Lokasi, tanggal, pembuat.</p>
+        <div class="lb-thumbs" id="lbThumbs" aria-label="Thumbnail"></div>
+      </aside>
+
+      <button class="nav-arrows right" id="nextBtn" aria-label="Berikutnya">▶</button>
+    </div>
+  </div>
+
+  <script>
+    /* ========= Data + State ========= */
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const GALLERY = document.getElementById('gallery');
+    const FILTER_BTNS = document.querySelectorAll('.filter-btn');
+    const UPLOAD_INPUT = document.getElementById('uploadInput');
+    const THEME_TOGGLE = document.getElementById('themeToggle');
+    const SHUFFLE_BTN = document.getElementById('shuffleBtn');
+
+    // initial demo images (picsum placeholders)
+    let images = [
+      {id:1015, src:'https://picsum.photos/id/1015/1200/800', title:'Bukit Berkabut', tag:'event', desc:'Pagi berkabut — Hike komunitas'},
+      {id:1025, src:'https://picsum.photos/id/1025/1200/800', title:'Jembatan Kota', tag:'meet', desc:'Kumpul sore di kota'},
+      {id:1035, src:'https://picsum.photos/id/1035/1200/1600', title:'Potret Anggota', tag:'art', desc:'Potret karya anggota'},
+      {id:1045, src:'https://picsum.photos/id/1045/1200/800', title:'Hutan Hijau', tag:'event', desc:'Eksplorasi alam'},
+      {id:1055, src:'https://picsum.photos/id/1055/1200/800', title:'Kafe Malam', tag:'meet', desc:'Ngopi setelah coding'},
+      {id:1065, src:'https://picsum.photos/id/1065/1200/800', title:'Mata Kupu', tag:'art', desc:'Foto makro karya A'},
+      {id:1075, src:'https://picsum.photos/id/1075/1200/800', title:'Jalan Antik', tag:'event', desc:'City walk komunitas'},
+      {id:1085, src:'https://picsum.photos/id/1085/1200/800', title:'Embun Pagi', tag:'art', desc:'Karya foto embun'},
+      {id:1095, src:'https://picsum.photos/id/1095/1200/1600', title:'Potret Remaja', tag:'meet', desc:'Pose candid member'}
+    ];
+
+    let currentList = images.slice();
+    let activeIndex = 0; // index within currentList for lightbox
+
+    /* ========= Render Gallery ========= */
+    function renderGallery(filter='all'){
+      GALLERY.innerHTML = '';
+      const list = (filter === 'all') ? currentList = images.slice() : currentList = images.filter(i => i.tag === filter);
+      list.forEach((item, idx) => {
+        const el = document.createElement('article');
+        el.className = 'gallery-item';
+        el.tabIndex = 0;
+        el.setAttribute('data-idx', idx);
+        el.setAttribute('data-tag', item.tag);
+        el.innerHTML = `
+          <img src="${item.src}" alt="${escapeHtml(item.title)}">
+          <div class="gallery-caption">${escapeHtml(item.title)}</div>
+          <div class="tag-pill">${escapeHtml(item.tag)}</div>
+        `;
+        // click opens lightbox
+        el.addEventListener('click', () => openLightbox(idx));
+        // keyboard support
+        el.addEventListener('keydown', (e) => { if(e.key === 'Enter') openLightbox(idx) });
+        GALLERY.appendChild(el);
+      });
+    }
+
+    /* ========= Lightbox Logic ========= */
+    const LIGHTBOX = document.getElementById('lightbox');
+    const LB_IMAGE = document.getElementById('lbImage');
+    const LB_TITLE = document.getElementById('lbTitle');
+    const LB_DESC = document.getElementById('lbDesc');
+    const LB_THUMBS = document.getElementById('lbThumbs');
+    const LB_CLOSE = document.getElementById('lbClose');
+    const NEXT_BTN = document.getElementById('nextBtn');
+    const PREV_BTN = document.getElementById('prevBtn');
+
+    function openLightbox(idx){
+      activeIndex = idx;
+      const item = currentList[activeIndex];
+      if(!item) return;
+      LB_IMAGE.src = item.src;
+      LB_TITLE.textContent = item.title;
+      LB_DESC.textContent = item.desc;
+      populateThumbs();
+      LIGHTBOX.classList.add('show');
+      LIGHTBOX.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+      // focus for accessibility
+      LB_CLOSE.focus();
+    }
+
+    function closeLightbox(){
+      LIGHTBOX.classList.remove('show');
+      LIGHTBOX.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+    }
+
+    function populateThumbs(){
+      LB_THUMBS.innerHTML = '';
+      currentList.forEach((it, i) => {
+        const t = document.createElement('div');
+        t.className = 'thumb' + (i === activeIndex ? ' active' : '');
+        t.innerHTML = `<img src="${it.src}" alt="${escapeHtml(it.title)}">`;
+        t.addEventListener('click', () => {
+          activeIndex = i;
+          updateLightbox();
+        });
+        LB_THUMBS.appendChild(t);
+      });
+    }
+
+    function updateLightbox(){
+      const item = currentList[activeIndex];
+      if(!item) return;
+      LB_IMAGE.src = item.src;
+      LB_TITLE.textContent = item.title;
+      LB_DESC.textContent = item.desc;
+      // update active thumb
+      Array.from(LB_THUMBS.children).forEach((c, i) => c.classList.toggle('active', i === activeIndex));
+    }
+
+    NEXT_BTN.addEventListener('click', (e) => { e.stopPropagation(); navLightbox(1); });
+    PREV_BTN.addEventListener('click', (e) => { e.stopPropagation(); navLightbox(-1); });
+    LB_CLOSE.addEventListener('click', closeLightbox);
+    LIGHTBOX.addEventListener('click', (e) => { if(e.target === LIGHTBOX) closeLightbox(); });
+
+    function navLightbox(delta){
+      activeIndex = (activeIndex + delta + currentList.length) % currentList.length;
+      updateLightbox();
+    }
+
+    // keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if(LIGHTBOX.classList.contains('show')){
+        if(e.key === 'ArrowRight') navLightbox(1);
+        if(e.key === 'ArrowLeft') navLightbox(-1);
+        if(e.key === 'Escape') closeLightbox();
+      }
+    });
+
+    /* ========= Filters, Upload, Shuffle ========= */
+    FILTER_BTNS.forEach(btn => {
+      btn.addEventListener('click', () => {
+        FILTER_BTNS.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        renderGallery(f);
+      });
+    });
+
+    UPLOAD_INPUT.addEventListener('change', async (e) => {
+      const files = Array.from(e.target.files).slice(0, 12); // limit multi upload for safety
