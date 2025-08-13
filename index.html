@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>La Community — Galeri Komunitas</title>
+  <title>Leintist Academy — Komunitas Weelife</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
@@ -78,9 +78,7 @@
       position:sticky;top:12px;margin:12px auto;max-width:1200px;padding:10px 14px;border-radius:14px;background:var(--panel);backdrop-filter:blur(10px);box-shadow:0 6px 30px rgba(0,0,0,0.45);display:flex;align-items:center;gap:12px;z-index:40; border:1px solid rgba(255,255,255,0.03)
     }
     .brand{display:flex;align-items:center;gap:12px}
-    .brand .logo{
-      display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent-cyan),var(--accent-pink));color:#07101a;font-weight:700;font-family:Orbitron, sans-serif;font-size:18px;box-shadow:0 8px 30px rgba(0,240,255,0.06)
-    }
+    .brand .logo img{height: 56px; width: 56px; border-radius: 12px; object-fit: cover;}
     .brand .title{font-family:Orbitron, sans-serif;color:var(--accent-amber);font-size:18px;letter-spacing:0.6px}
     .nav-links{display:flex;gap:18px;align-items:center;margin-left:18px}
     .nav-links a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:8px;font-weight:600;transition:all .18s}
@@ -104,7 +102,21 @@
     .hero .left{flex:1}
     .hero h2{font-family:Orbitron;font-size:20px;color:var(--accent-cyan);margin-bottom:6px}
     .hero p{color:var(--muted);font-size:14px}
-
+    .btn-simple {
+      background: var(--glass);
+      border: 1px solid var(--glass-strong);
+      color: var(--accent-cyan);
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all .2s;
+    }
+    .btn-simple:hover {
+      background: var(--glass-strong);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
     /* ========= Controls (filter, upload, shuffle) ========= */
     .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:16px 0}
     .controls .filter-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:10px;color:var(--muted);cursor:pointer;transition:all .16s}
@@ -120,6 +132,33 @@
     .gallery-item:hover img{transform:scale(1.08)}
     .gallery-caption{position:absolute;left:12px;bottom:12px;padding:6px 10px;border-radius:8px;background:linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.52));color:#fff;font-size:13px}
     .tag-pill{position:absolute;right:12px;top:12px;background:rgba(0,0,0,0.35);padding:6px 8px;border-radius:8px;color:var(--muted);font-size:12px;border:1px solid rgba(255,255,255,0.02)}
+    .social-card {
+      padding: 18px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.03);
+      text-align: center;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .social-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.45);
+    }
+    .social-card h3 {
+      font-family: Orbitron;
+      color: var(--accent-amber);
+      margin-bottom: 8px;
+    }
+    .social-card a {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      background: var(--glass);
+      color: var(--accent-cyan);
+      text-decoration: none;
+      font-size: 14px;
+    }
 
     /* ========= Lightbox (modal) ========= */
     .lightbox{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(3,6,12,0.85), rgba(3,6,12,0.94));z-index:300}
@@ -142,6 +181,15 @@
 
     /* footer small */
     .footer-note{text-align:center;margin:28px 0;color:var(--muted);font-size:13px}
+    
+    /* section title */
+    .section-title {
+        font-family: Orbitron, sans-serif;
+        color: var(--accent-pink);
+        font-size: 24px;
+        text-align: center;
+        margin: 40px 0 20px 0;
+    }
 
     /* small screens */
     @media (max-width:900px){
@@ -150,6 +198,7 @@
       .nav-links{display:none}
       .mobile-toggle{display:inline-flex}
       nav.main-nav{padding:12px}
+      .gallery-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -167,43 +216,50 @@
 
   <nav class="main-nav" role="navigation" aria-label="Main navigation">
     <div class="brand" role="banner">
-      <div class="logo">LA</div>
+      <div class="logo">
+        <img src="https://github.com/marcellnw/LA-Community/blob/main/IMG_20250809193906648.jpg?raw=true" alt="Leintist Academy Logo">
+      </div>
       <div>
         <div class="title">Leintist Academy</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:2px">Gallery — Community</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px">Community — Weelife</div>
       </div>
     </div>
 
     <div class="nav-links" role="menubar" aria-hidden="false">
-      <a href="#community" role="menuitem">Galeri</a>
-      <a href="#events" role="menuitem">Events</a>
-      <a href="#about" role="menuitem">Tentang</a>
-      <a href="#contact" role="menuitem">Kontak</a>
+      <a href="galeri.html" role="menuitem">Galeri</a>
+      <a href="events.html" role="menuitem">Events</a>
+      <a href="about.html" role="menuitem">Tentang</a>
+      <a href="contact.html" role="menuitem">Kontak</a>
     </div>
 
     <div class="nav-actions" role="region" aria-label="Aksi">
-      <label class="upload-label" for="uploadInput" title="Upload foto baru">
+      <a href="upload.html" class="upload-label" title="Upload foto baru">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:6px"><path d="M12 3v12" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><path d="M8 7l4-4 4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="15" width="18" height="6" rx="2" stroke="#fff" stroke-width="1.2"/></svg>
         <span class="small">Upload</span>
-      </label>
+      </a>
 
       <button class="icon-btn" id="themeToggle" title="Toggle theme">🌙</button>
       <button class="icon-btn" id="shuffleBtn" title="Acak galeri">🔀</button>
-      <button class="cta-btn" id="joinBtn">Join</button>
+      <a href="join.html" class="cta-btn" id="joinBtn">Join</a>
     </div>
   </nav>
 
   <main class="container" id="community">
     <div class="hero" role="region" aria-label="intro">
       <div class="left">
-        <h2>Galeri Komunitas</h2>
-        <p>Dokumentasi kegiatan, event, dan momen komunitas Leintist Academy — kirim fotomu melalui tombol Upload.</p>
+        <h2>Panduan Komunitas Game Weelife</h2>
+        <p>Bergabunglah dengan komunitas kami untuk menjelajahi dunia Weelife bersama. Kami berbagi tips, trik, dan momen seru dalam game ini!</p>
+        <div style="margin-top: 10px;">
+          <a href="https://weelife.com" target="_blank" class="btn-simple">Kunjungi Weelife</a>
+        </div>
       </div>
       <div style="min-width:160px;text-align:right">
-        <div style="font-size:12px;color:var(--muted)">Tips: gunakan JPEG/PNG. Maks 10MB per foto.</div>
+        <div style="font-size:12px;color:var(--muted)">Tips: Selalu jaga sportivitas dan bersenang-senang!</div>
       </div>
     </div>
 
+    <h2 class="section-title">Galeri Komunitas</h2>
+    
     <div class="controls" role="toolbar" aria-label="Filter galeri">
       <button class="filter-btn active" data-filter="all">Semua</button>
       <button class="filter-btn" data-filter="event">Event</button>
@@ -212,15 +268,64 @@
 
       <div style="flex:1"></div>
 
-      <label class="upload-label" for="uploadInput" title="Upload foto baru">
+      <a href="upload.html" class="upload-label" title="Upload foto baru">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:6px"><path d="M12 3v12" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><path d="M8 7l4-4 4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="15" width="18" height="6" rx="2" stroke="#fff" stroke-width="1.2"/></svg>
         Upload Foto
-      </label>
-
-      <input type="file" id="uploadInput" accept="image/*" multiple style="display:none">
+      </a>
     </div>
 
     <section class="gallery-grid" id="gallery" aria-live="polite"></section>
+    
+    <div style="margin: 40px 0;"></div>
+
+    <h2 class="section-title">Sosial Media Member</h2>
+    <section class="gallery-grid">
+      <div class="social-card">
+        <h3>Dedy Zhee</h3>
+        <p>Konten TikTok seputar game.</p>
+        <a href="https://www.tiktok.com/@mobalagend16?_t=ZS-8ypimJpoKcz&_r=1" target="_blank">Lihat TikTok</a>
+      </div>
+      <div class="social-card">
+        <h3>Nathania</h3>
+        <p>Konten seru dan lucu di TikTok.</p>
+        <a href="https://www.tiktok.com/@nathania920428?_t=ZS-8ypijcxOkSX&_r=1" target="_blank">Lihat TikTok</a>
+      </div>
+      <div class="social-card">
+        <h3>Debora</h3>
+        <p>Jurnal harian di TikTok.</p>
+        <a href="https://www.tiktok.com/@caca.moy8?_t=ZS-8ypihrNeW9I&_r=1" target="_blank">Lihat TikTok</a>
+      </div>
+      <div class="social-card">
+        <h3>Giselle</h3>
+        <p>Konten kreatif dan unik.</p>
+        <a href="https://www.tiktok.com/@giselleflay?_t=ZS-8ypielK0jOi&_r=1" target="_blank">Lihat TikTok</a>
+      </div>
+      <div class="social-card">
+        <h3>Nini</h3>
+        <p>Momen-momen menarik Weelife.</p>
+        <a href="https://www.tiktok.com/@nini24058?_t=ZS-8ypipvxFRFR&_r=1" target="_blank">Lihat TikTok</a>
+      </div>
+      <div class="social-card">
+        <h3>Marcellnw</h3>
+        <p>Video gameplay dan tips.</p>
+        <a href="https://www.tiktok.com/@marcellnw_?_t=ZS-8ypisKlbJfF&_r=1" target="_blank">Lihat TikTok</a>
+      </div>
+      <div class="social-card">
+        <h3>Member 7</h3>
+        <p>Slot kosong untuk member berikutnya.</p>
+      </div>
+      <div class="social-card">
+        <h3>Member 8</h3>
+        <p>Slot kosong untuk member berikutnya.</p>
+      </div>
+    </section>
+
+    <h2 class="section-title">Cerita Bulan Ini</h2>
+    <div class="hero">
+        <p>Selamat datang di cerita bulan ini! Kami merangkum petualangan paling seru, tantangan yang kami taklukkan, dan momen-momen paling berkesan dari komunitas Weelife. Simak foto-foto di bawah ini untuk melihat aksi terbaik kami dan jadilah bagian dari cerita selanjutnya!</p>
+    </div>
+
+    <section class="gallery-grid" id="storyGallery"></section>
 
     <div class="footer-note">Leintist Academy • © <span id="year"></span></div>
   </main>
@@ -248,46 +353,67 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     const GALLERY = document.getElementById('gallery');
+    const STORY_GALLERY = document.getElementById('storyGallery');
     const FILTER_BTNS = document.querySelectorAll('.filter-btn');
-    const UPLOAD_INPUT = document.getElementById('uploadInput');
     const THEME_TOGGLE = document.getElementById('themeToggle');
     const SHUFFLE_BTN = document.getElementById('shuffleBtn');
 
-    let images = []; // Array ini sekarang akan diisi dari database
-    let currentList = images.slice();
-    let activeIndex = 0;
+    // initial demo images (weelife placeholders)
+    let images = [
+      {id:1, src:'https://picsum.photos/seed/weelife1/1200/800', title:'Menjelajahi Kota', tag:'event', desc:'Petualangan di kota virtual Weelife.'},
+      {id:2, src:'https://picsum.photos/seed/weelife2/1200/800', title:'Santai di Pantai', tag:'meet', desc:'Kumpul santai komunitas di pantai.'},
+      {id:3, src:'https://picsum.photos/seed/weelife3/1200/1600', title:'Desain Rumah', tag:'art', desc:'Karya desain rumah anggota.'},
+      {id:4, src:'https://picsum.photos/seed/weelife4/1200/800', title:'Festival Komunitas', tag:'event', desc:'Merayakan festival bersama di Weelife.'},
+      {id:5, src:'https://picsum.photos/seed/weelife5/1200/800', title:'Malam Pesta', tag:'meet', desc:'Pesta malam bersama di klub.'},
+      {id:6, src:'https://picsum.photos/seed/weelife6/1200/800', title:'Taman Bunga', tag:'art', desc:'Hasil foto taman bunga virtual.'},
+      {id:7, src:'https://picsum.photos/seed/weelife7/1200/800', title:'Berburu Harta Karun', tag:'event', desc:'Aksi seru berburu harta karun.'},
+      {id:8, src:'https://picsum.photos/seed/weelife8/1200/800', title:'Embun Pagi', tag:'art', desc:'Karya foto embun'},
+      {id:9, src:'https://picsum.photos/seed/weelife9/1200/1600', title:'Potret Remaja', tag:'meet', desc:'Pose candid member'}
+    ];
+    
+    // Monthly story images
+    let storyImages = [
+      {id:10, src:'https://picsum.photos/seed/weelife10/1200/800', title:'Malam Indah', tag:'event', desc:'Malam indah di Weelife.'},
+      {id:11, src:'https://picsum.photos/seed/weelife11/1200/800', title:'Kumpul Sore', tag:'meet', desc:'Ngobrol santai sore hari.'},
+      {id:12, src:'https://picsum.photos/seed/weelife12/1200/1600', title:'Pemandangan Cantik', tag:'art', desc:'Pemandangan alam Weelife.'},
+      {id:13, src:'https://picsum.photos/seed/weelife13/1200/800', title:'Aksi Seru', tag:'event', desc:'Mencoba tantangan baru.'},
+      {id:14, src:'https://picsum.photos/seed/weelife14/1200/800', title:'Membangun Istana', tag:'art', desc:'Proyek pembangunan istana.'},
+      {id:15, src:'https://picsum.photos/seed/weelife15/1200/800', title:'Balon Udara', tag:'meet', desc:'Naik balon udara bersama.'},
+      {id:16, src:'https://picsum.photos/seed/weelife16/1200/800', title:'Perayaan Pesta', tag:'event', desc:'Pesta perayaan kemenangan.'},
+      {id:17, src:'https://picsum.photos/seed/weelife17/1200/800', title:'Latihan Tim', tag:'meet', desc:'Latihan tim di arena.'},
+    ];
 
-    // Helper function for XSS protection
-    function escapeHtml(unsafe) {
-      return unsafe
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-    }
+    let currentList = images.slice();
+    let activeIndex = 0; // index within currentList for lightbox
+    let currentGallery = 'main';
 
     /* ========= Render Gallery ========= */
-    function renderGallery(filter = 'all') {
-        GALLERY.innerHTML = '';
-        const list = (filter === 'all') ? currentList = images.slice() : currentList = images.filter(i => i.tag === filter);
-        list.forEach((item, idx) => {
+    function renderGallery(galleryElement, list, filter = 'all') {
+        galleryElement.innerHTML = '';
+        const filteredList = (filter === 'all') ? list : list.filter(i => i.tag === filter);
+        filteredList.forEach((item, idx) => {
             const el = document.createElement('article');
             el.className = 'gallery-item';
             el.tabIndex = 0;
             el.setAttribute('data-idx', idx);
             el.setAttribute('data-tag', item.tag);
             el.innerHTML = `
-            <img src="${item.imageUrl}" alt="${escapeHtml(item.title)}">
-            <div class="gallery-caption">${escapeHtml(item.title)}</div>
-            <div class="tag-pill">${escapeHtml(item.tag)}</div>
+                <img src="${item.src}" alt="${escapeHtml(item.title)}">
+                <div class="gallery-caption">${escapeHtml(item.title)}</div>
+                <div class="tag-pill">${escapeHtml(item.tag)}</div>
             `;
-            el.addEventListener('click', () => openLightbox(idx));
-            el.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') openLightbox(idx)
-            });
-            GALLERY.appendChild(el);
+            // click opens lightbox
+            el.addEventListener('click', () => openLightbox(idx, filteredList));
+            // keyboard support
+            el.addEventListener('keydown', (e) => { if (e.key === 'Enter') openLightbox(idx, filteredList) });
+            galleryElement.appendChild(el);
         });
+        return filteredList;
+    }
+
+    function renderAllGalleries() {
+      currentList = renderGallery(GALLERY, images, 'all');
+      renderGallery(STORY_GALLERY, storyImages, 'all');
     }
 
     /* ========= Lightbox Logic ========= */
@@ -300,108 +426,115 @@
     const NEXT_BTN = document.getElementById('nextBtn');
     const PREV_BTN = document.getElementById('prevBtn');
 
-    function openLightbox(idx) {
-        activeIndex = idx;
-        const item = currentList[activeIndex];
-        if (!item) return;
-        LB_IMAGE.src = item.imageUrl;
-        LB_TITLE.textContent = item.title;
-        LB_DESC.textContent = item.description;
-        populateThumbs();
-        LIGHTBOX.classList.add('show');
-        LIGHTBOX.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-        LB_CLOSE.focus();
+    let currentLightboxList = [];
+
+    function openLightbox(idx, list){
+      activeIndex = idx;
+      currentLightboxList = list;
+      const item = currentLightboxList[activeIndex];
+      if(!item) return;
+      LB_IMAGE.src = item.src;
+      LB_TITLE.textContent = item.title;
+      LB_DESC.textContent = item.desc;
+      populateThumbs();
+      LIGHTBOX.classList.add('show');
+      LIGHTBOX.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+      // focus for accessibility
+      LB_CLOSE.focus();
     }
 
-    function closeLightbox() {
-        LIGHTBOX.classList.remove('show');
-        LIGHTBOX.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
+    function closeLightbox(){
+      LIGHTBOX.classList.remove('show');
+      LIGHTBOX.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
     }
 
-    function populateThumbs() {
-        LB_THUMBS.innerHTML = '';
-        currentList.forEach((it, i) => {
-            const t = document.createElement('div');
-            t.className = 'thumb' + (i === activeIndex ? ' active' : '');
-            t.innerHTML = `<img src="${it.imageUrl}" alt="${escapeHtml(it.title)}">`;
-            t.addEventListener('click', () => {
-                activeIndex = i;
-                updateLightbox();
-            });
-            LB_THUMBS.appendChild(t);
+    function populateThumbs(){
+      LB_THUMBS.innerHTML = '';
+      currentLightboxList.forEach((it, i) => {
+        const t = document.createElement('div');
+        t.className = 'thumb' + (i === activeIndex ? ' active' : '');
+        t.innerHTML = `<img src="${it.src}" alt="${escapeHtml(it.title)}">`;
+        t.addEventListener('click', () => {
+          activeIndex = i;
+          updateLightbox();
         });
+        LB_THUMBS.appendChild(t);
+      });
     }
 
-    function updateLightbox() {
-        const item = currentList[activeIndex];
-        if (!item) return;
-        LB_IMAGE.src = item.imageUrl;
-        LB_TITLE.textContent = item.title;
-        LB_DESC.textContent = item.description;
-        Array.from(LB_THUMBS.children).forEach((c, i) => c.classList.toggle('active', i === activeIndex));
+    function updateLightbox(){
+      const item = currentLightboxList[activeIndex];
+      if(!item) return;
+      LB_IMAGE.src = item.src;
+      LB_TITLE.textContent = item.title;
+      LB_DESC.textContent = item.desc;
+      // update active thumb
+      Array.from(LB_THUMBS.children).forEach((c, i) => c.classList.toggle('active', i === activeIndex));
     }
 
     NEXT_BTN.addEventListener('click', (e) => { e.stopPropagation(); navLightbox(1); });
     PREV_BTN.addEventListener('click', (e) => { e.stopPropagation(); navLightbox(-1); });
     LB_CLOSE.addEventListener('click', closeLightbox);
-    LIGHTBOX.addEventListener('click', (e) => { if (e.target === LIGHTBOX) closeLightbox(); });
+    LIGHTBOX.addEventListener('click', (e) => { if(e.target === LIGHTBOX) closeLightbox(); });
 
-    function navLightbox(delta) {
-        activeIndex = (activeIndex + delta + currentList.length) % currentList.length;
-        updateLightbox();
+    function navLightbox(delta){
+      activeIndex = (activeIndex + delta + currentLightboxList.length) % currentLightboxList.length;
+      updateLightbox();
     }
 
+    // keyboard navigation
     document.addEventListener('keydown', (e) => {
-        if (LIGHTBOX.classList.contains('show')) {
-            if (e.key === 'ArrowRight') navLightbox(1);
-            if (e.key === 'ArrowLeft') navLightbox(-1);
-            if (e.key === 'Escape') closeLightbox();
-        }
+      if(LIGHTBOX.classList.contains('show')){
+        if(e.key === 'ArrowRight') navLightbox(1);
+        if(e.key === 'ArrowLeft') navLightbox(-1);
+        if(e.key === 'Escape') closeLightbox();
+      }
     });
 
     /* ========= Filters, Upload, Shuffle ========= */
     FILTER_BTNS.forEach(btn => {
-        btn.addEventListener('click', () => {
-            FILTER_BTNS.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            const f = btn.dataset.filter;
-            renderGallery(f);
-        });
+      btn.addEventListener('click', () => {
+        FILTER_BTNS.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        currentList = renderGallery(GALLERY, images, f);
+      });
     });
 
-    UPLOAD_INPUT.addEventListener('change', async (e) => {
-        const files = e.target.files;
-        if (files.length === 0) return;
+    // Shuffle functionality
+    SHUFFLE_BTN.addEventListener('click', () => {
+        const shuffledList = shuffleArray([...images]);
+        images = shuffledList;
+        renderAllGalleries();
+    });
 
-        const title = prompt("Masukkan judul foto:");
-        const description = prompt("Masukkan deskripsi foto:");
-        const tag = prompt("Masukkan tag foto (event, meet, atau art):");
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
 
-        if (!title || !description || !tag) {
-            alert('Judul, deskripsi, dan tag harus diisi!');
-            return;
-        }
+    /* ========= Theme Toggle ========= */
+    THEME_TOGGLE.addEventListener('click', () => {
+        const body = document.body;
+        const currentTheme = body.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        body.setAttribute('data-theme', newTheme);
+        THEME_TOGGLE.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+    });
+    
+    // Initial render
+    renderAllGalleries();
 
-        const formData = new FormData();
-        formData.append('image', files[0]);
-        formData.append('title', title);
-        formData.append('description', description);
-        formData.append('tag', tag);
-
-        try {
-            const response = await fetch('/api/upload', {
-                method: 'POST',
-                body: formData,
-            });
-
-            if (!response.ok) {
-                throw new Error('Gagal mengunggah gambar. Silakan coba lagi.');
-            }
-
-            const result = await response.json();
-            alert('Gambar berhasil diunggah!');
-            
-            images.unshift({
-                id: res
+    // Utility function for HTML escaping
+    function escapeHtml(str) {
+      if (typeof str !== 'string') return '';
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+    }
+  </script>
+</body>
+</html>
