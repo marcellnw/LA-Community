@@ -1,1 +1,478 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Leintist Academy — Galeri Weelife</title>
 
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLPD7yE6fX3s6+3qH4yB5F4K4xXo+6pA6E5bL7b5jV2kI+5O65e7M5n6s7Z1n5c7y5n5l5M7y7Y7t5p5k5y5" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <style>
+    /* ========= Variables & Base ========= */
+    :root{
+      --bg: #070617;
+      --panel: rgba(8,10,20,0.6);
+      --card: #0b1220;
+      --accent-cyan: #00f0ff;
+      --accent-pink: #ff45d6;
+      --accent-amber: #f6b73b;
+      --muted: #9aa4b2;
+      --glass: rgba(255,255,255,0.03);
+      --glass-strong: rgba(255,255,255,0.06);
+    }
+    [data-theme="light"]{
+      --bg: linear-gradient(180deg,#f3f4f6,#eaeef6);
+      --panel: rgba(255,255,255,0.88);
+      --card: #ffffff;
+      --accent-cyan: #066a6a;
+      --accent-pink: #8b0066;
+      --accent-amber: #b7791f;
+      --muted: #374151;
+      --glass: rgba(0,0,0,0.04);
+      --glass-strong: rgba(0,0,0,0.06);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      background: var(--bg);
+      color:var(--muted);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+
+    /* ========= Background Visuals (NEXUS style) ========= */
+    .cyber-bg{position:fixed;inset:0;z-index:-10;overflow:hidden}
+    .cyber-gradient{
+      position:absolute;inset:-30% ;background:
+      radial-gradient(600px 400px at 10% 20%, rgba(0,240,255,0.09), transparent 12%),
+      radial-gradient(700px 500px at 90% 80%, rgba(255,69,214,0.06), transparent 12%),
+      radial-gradient(400px 300px at 60% 30%, rgba(246,183,59,0.04), transparent 12%);
+      filter: blur(40px);
+      animation: rotateGrad 30s linear infinite;
+    }
+    @keyframes rotateGrad {0%{transform:rotate(0)}50%{transform:rotate(180deg) scale(1.08)}100%{transform:rotate(360deg)}}
+
+    .matrix-rain{position:absolute;inset:0;pointer-events:none;opacity:0.12}
+    .matrix-column{position:absolute;top:-120vh;font-family:monospace;white-space:pre; font-size:12px;color:var(--accent-cyan);text-shadow:0 0 8px rgba(0,240,255,0.25);animation:matrixFall linear infinite}
+    @keyframes matrixFall{0%{transform:translateY(-120vh)}100%{transform:translateY(120vh)}}
+
+    .orb{position:fixed;border-radius:50%;filter:blur(80px);opacity:0.45;pointer-events:none;z-index:-5}
+    .orb1{width:360px;height:360px;background:var(--accent-cyan);left:-140px;top:6%}
+    .orb2{width:420px;height:420px;background:var(--accent-pink);right:-180px;bottom:6%}
+    .orb3{width:280px;height:280px;background:var(--accent-amber);left:50%;top:50%;transform:translate(-50%,-50%)}
+
+    .particles{position:fixed;inset:0;z-index:-8;pointer-events:none}
+    .particle{position:absolute;width:4px;height:4px;border-radius:50%;background:var(--accent-cyan);box-shadow:0 0 10px currentColor;opacity:0.7}
+
+    /* subtle grid */
+    .grid-overlay{position:fixed;inset:0;z-index:-9;pointer-events:none}
+    .grid-lines{position:absolute;inset:0;background-image:
+      linear-gradient(rgba(0,240,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,69,214,0.02) 1px, transparent 1px);background-size:60px 60px;opacity:0.28}
+
+    /* ========= Top Nav (glassmorphism) ========= */
+    nav.main-nav{
+      position:sticky;top:12px;margin:12px auto;max-width:1200px;padding:10px 14px;border-radius:14px;background:var(--panel);backdrop-filter:blur(10px);box-shadow:0 6px 30px rgba(0,0,0,0.45);display:flex;align-items:center;gap:12px;z-index:40; border:1px solid rgba(255,255,255,0.03)
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand .logo img{height: 56px; width: 56px; border-radius: 12px; object-fit: cover;}
+    .brand .title{font-family:Orbitron, sans-serif;color:var(--accent-amber);font-size:18px;letter-spacing:0.6px}
+    .nav-links{display:flex;gap:18px;align-items:center;margin-left:18px}
+    .nav-links a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:8px;font-weight:600;transition:all .18s}
+    .nav-links a:hover{color:var(--accent-cyan);text-shadow:0 0 12px rgba(0,240,255,0.08)}
+    .nav-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+    .icon-btn{background:transparent;border:1px solid rgba(255,255,255,0.03);padding:8px;border-radius:10px;cursor:pointer;color:var(--muted);transition:all .15s}
+    .icon-btn:hover{transform:translateY(-3px);box-shadow:0 6px 30px rgba(0,240,255,0.06);border-color:rgba(0,240,255,0.08)}
+    .cta-btn{background:linear-gradient(90deg,var(--accent-cyan),var(--accent-pink));color:#07101a;padding:10px 14px;border-radius:12px;font-weight:700;border:0;cursor:pointer;box-shadow:0 8px 30px rgba(0,240,255,0.12)}
+    .cta-btn:hover{transform:translateY(-3px)}
+
+    /* mobile menu */
+    .mobile-toggle{display:none}
+
+    /* ========= Layout Container ========= */
+    .container{max-width:1200px;margin:28px auto;padding:18px;position:relative;z-index:10}
+
+    /* hero small */
+    .hero{
+      padding:26px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);display:flex;align-items:center;gap:18px;margin-bottom:18px;
+    }
+    .hero .left{flex:1}
+    .hero h2{font-family:Orbitron;font-size:20px;color:var(--accent-cyan);margin-bottom:6px}
+    .hero p{color:var(--muted);font-size:14px}
+    .btn-simple {
+      background: var(--glass);
+      border: 1px solid var(--glass-strong);
+      color: var(--accent-cyan);
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all .2s;
+    }
+    .btn-simple:hover {
+      background: var(--glass-strong);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* ========= Controls (filter, upload, shuffle) ========= */
+    .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:16px 0}
+    .controls .filter-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:10px;color:var(--muted);cursor:pointer;transition:all .16s}
+    .controls .filter-btn.active{background:linear-gradient(90deg,var(--accent-cyan),var(--accent-pink));color:#07101a;border-color:transparent;box-shadow:0 10px 30px rgba(0,240,255,0.08)}
+    .controls .upload-label{display:inline-flex;align-items:center;gap:8px;background:var(--glass);padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);cursor:pointer}
+    .controls .small{font-size:13px;color:var(--muted)}
+
+    /* ========= Gallery Grid ========= */
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:6px}
+    .gallery-item{position:relative;border-radius:12px;overflow:hidden;background:linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.28));border:1px solid rgba(255,255,255,0.03);cursor:pointer;transition:transform .3s,box-shadow .3s}
+    .gallery-item:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(0,0,0,0.45)}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s cubic-bezier(.2,.9,.3,1)}
+    .gallery-item:hover img{transform:scale(1.08)}
+    .gallery-caption{position:absolute;left:12px;bottom:12px;padding:6px 10px;border-radius:8px;background:linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.52));color:#fff;font-size:13px}
+    .tag-pill{position:absolute;right:12px;top:12px;background:rgba(0,0,0,0.35);padding:6px 8px;border-radius:8px;color:var(--muted);font-size:12px;border:1px solid rgba(255,255,255,0.02)}
+    .social-card {
+      padding: 18px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.03);
+      text-align: center;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .social-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.45);
+    }
+    .social-card h3 {
+      font-family: Orbitron;
+      color: var(--accent-amber);
+      margin-bottom: 8px;
+    }
+    .social-card a {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      background: var(--glass);
+      color: var(--accent-cyan);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    /* Upload form specific styles */
+    .upload-container {
+        padding: 26px;
+        border-radius: 12px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+        border: 1px solid rgba(255,255,255,0.03);
+        margin-bottom: 20px;
+    }
+    .upload-container h3 {
+        font-family: Orbitron, sans-serif;
+        color: var(--accent-pink);
+        margin-bottom: 12px;
+    }
+    .upload-form .form-group {
+        margin-bottom: 16px;
+    }
+    .upload-form label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--accent-cyan);
+    }
+    .upload-form input[type="text"],
+    .upload-form select,
+    .upload-form textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        background: var(--glass);
+        border: 1px solid var(--glass-strong);
+        color: var(--muted);
+        font-family: Inter, sans-serif;
+    }
+    .upload-form textarea {
+        resize: vertical;
+        min-height: 100px;
+    }
+    .upload-form input[type="file"] {
+        border: 1px dashed var(--accent-cyan);
+        padding: 12px;
+        border-radius: 8px;
+        width: 100%;
+    }
+    .upload-form button[type="submit"] {
+        background: linear-gradient(90deg,var(--accent-cyan),var(--accent-pink));
+        color: #07101a;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 10px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform .2s;
+    }
+    .upload-form button[type="submit"]:hover {
+        transform: translateY(-2px);
+    }
+    .upload-status {
+        margin-top: 15px;
+        font-size: 14px;
+        color: var(--accent-amber);
+    }
+    .upload-card-footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 14px;
+        color: var(--muted);
+    }
+    .upload-card-footer a {
+        color: var(--accent-cyan);
+        text-decoration: none;
+    }
+    .upload-card-footer a:hover {
+        text-decoration: underline;
+    }
+
+
+    /* Feedback card specific styles */
+    .feedback-card {
+        padding: 26px;
+        border-radius: 12px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+        border: 1px solid rgba(255,255,255,0.03);
+    }
+    .feedback-card h3 {
+        font-family: Orbitron, sans-serif;
+        color: var(--accent-amber);
+        margin-bottom: 12px;
+    }
+    .feedback-card ol {
+        margin-left: 20px;
+        font-size: 14px;
+        color: var(--muted);
+    }
+    .feedback-card ol li {
+        margin-bottom: 8px;
+    }
+    .feedback-card ol li strong {
+        color: var(--accent-cyan);
+    }
+    .discord-icon {
+        color: #5865F2; /* Discord brand color */
+        margin-right: 8px;
+    }
+
+    /* section title */
+    .section-title {
+        font-family: Orbitron, sans-serif;
+        color: var(--accent-pink);
+        font-size: 24px;
+        text-align: center;
+        margin: 40px 0 20px 0;
+    }
+
+    /* social media icons */
+    .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin: 20px 0;
+    }
+    .social-icons a {
+        color: #fff;
+        font-size: 24px;
+        transition: transform 0.2s;
+    }
+    .social-icons a:hover {
+        transform: scale(1.2);
+    }
+    .social-icons a.discord:hover {
+        color: #5865F2;
+    }
+    .social-icons a.tiktok:hover {
+        color: #69C9D0;
+    }
+
+    /* footer small */
+    .footer-note{text-align:center;margin:28px 0;color:var(--muted);font-size:13px}
+    
+    /* small screens */
+    @media (max-width:900px){
+      .lb-inner{flex-direction:column}
+      .lb-side{width:100%;max-height:40vh}
+      .nav-links{display:none}
+      .mobile-toggle{display:inline-flex}
+      nav.main-nav{padding:12px}
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+
+  <div class="cyber-bg" aria-hidden="true">
+    <div class="cyber-gradient"></div>
+    <div class="matrix-rain" id="matrixRain"></div>
+    <div class="grid-overlay"><div class="grid-lines"></div></div>
+    <div class="particles" id="particlesContainer"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+
+  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+    <div class="brand" role="banner">
+      <div class="logo">
+        <img src="https://github.com/marcellnw/LA-Community/blob/main/IMG_20250809193906648.jpg?raw=true" alt="Leintist Academy Logo">
+      </div>
+      <div>
+        <div class="title">Leintist Academy</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px">Community — Weelife</div>
+      </div>
+    </div>
+
+    <div class="nav-actions" role="region" aria-label="Aksi">
+      <label for="file-upload" class="cta-btn" title="Upload foto baru" style="display:flex;align-items:center;cursor:pointer">
+        <i class="fas fa-upload" style="margin-right: 8px;"></i>
+        Upload Foto
+      </label>
+      <input type="file" id="file-upload" style="display:none;" accept="image/*">
+      <button class="icon-btn" id="themeToggle" title="Toggle theme">🌙</button>
+      <a href="https://discord.gg/t9ncTCcEx4" target="_blank" class="cta-btn" id="joinBtn">Join Discord</a>
+    </div>
+  </nav>
+
+  <main class="container" id="community">
+
+    <h2 class="section-title">Galeri Komunitas Weelife</h2>
+    <div class="hero">
+        <div class="left">
+          <h2>Selamat datang di Galeri Komunitas!</h2>
+          <p>
+            Di sini, kamu bisa melihat semua momen seru yang diabadikan oleh para anggota komunitas Weelife. 
+            Mulai dari pertemuan seru, acara spesial, hingga karya seni dalam game, semuanya ada di sini. 
+            Yuk, jelajahi kreativitas dan kebersamaan kami!
+          </p>
+        </div>
+    </div>
+
+    <section class="gallery-grid" id="gallery" aria-live="polite">
+        <article class="gallery-item" data-tag="event">
+          <img src="https://picsum.photos/seed/weelife10/1200/800" alt="Acara Festival Komunitas">
+          <div class="gallery-caption">Festival Komunitas Weelife</div>
+        </article>
+        <article class="gallery-item" data-tag="meet">
+          <img src="https://picsum.photos/seed/weelife11/1200/800" alt="Kumpul santai di kafe">
+          <div class="gallery-caption">Kumpul Santai di Kafe</div>
+        </article>
+        <article class="gallery-item" data-tag="art">
+          <img src="https://picsum.photos/seed/weelife12/1200/800" alt="Desain rumah futuristik">
+          <div class="gallery-caption">Desain Rumah Futuristik</div>
+        </article>
+        <article class="gallery-item" data-tag="event">
+          <img src="https://picsum.photos/seed/weelife13/1200/800" alt="Lomba fashion show">
+          <div class="gallery-caption">Lomba Fashion Show</div>
+        </article>
+        <article class="gallery-item" data-tag="meet">
+          <img src="https://picsum.photos/seed/weelife14/1200/800" alt="Foto bareng di taman">
+          <div class="gallery-caption">Foto Bareng di Taman</div>
+        </article>
+        <article class="gallery-item" data-tag="art">
+          <img src="https://picsum.photos/seed/weelife15/1200/800" alt="Karya seni piksel">
+          <div class="gallery-caption">Karya Seni Piksel</div>
+        </article>
+        <article class="gallery-item" data-tag="event">
+          <img src="https://picsum.photos/seed/weelife16/1200/800" alt="Misi berburu monster">
+          <div class="gallery-caption">Misi Berburu Monster</div>
+        </article>
+        <article class="gallery-item" data-tag="meet">
+          <img src="https://picsum.photos/seed/weelife17/1200/800" alt="Selfie di tepi danau">
+          <div class="gallery-caption">Selfie di Tepi Danau</div>
+        </article>
+        <article class="gallery-item" data-tag="art">
+          <img src="https://picsum.photos/seed/weelife18/1200/800" alt="Lukisan virtual">
+          <div class="gallery-caption">Lukisan Virtual</div>
+        </article>
+    </section>
+
+    <h2 class="section-title">Cara Upload Foto</h2>
+    <div class="feedback-card">
+        <h3>Panduan Mudah Upload Foto ke Galeri</h3>
+        <p>Dengan mengikuti langkah-langkah di bawah ini, foto kamu akan langsung muncul di Discord channel kami dan bisa dilihat oleh seluruh komunitas!</p>
+        <ol>
+            <li><strong>Klik tombol "Upload Foto"</strong> di bagian atas halaman.</li>
+            <li><strong>Pilih file foto</strong> dari perangkatmu. Pastikan ukuran file tidak lebih dari 10 MB.</li>
+            <li>Foto akan langsung dikirim ke server Discord komunitas.</li>
+            <li>Tim kami akan meninjau dan menambahkan fotomu ke galeri utama di website ini.</li>
+            <li><strong>Selesai!</strong> Kamu sudah berkontribusi untuk galeri komunitas kita. Terima kasih!</li>
+        </ol>
+    </div>
+
+    <h2 class="section-title">Bergabung dengan Komunitas</h2>
+    <div class="social-icons">
+        <a href="https://discord.gg/t9ncTCcEx4" target="_blank" title="Gabung Discord" class="discord">
+          <i class="fab fa-discord"></i>
+        </a>
+    </div>
+
+    <div class="footer-note">Leintist Academy • © <span id="year"></span></div>
+  </main>
+  
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const UPLOAD_INPUT = document.getElementById('file-upload');
+    const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1405338849152073880/ds9RXcG8zmJMXDx6XVIz3b_3v3ozW-ZsEFBlzHANiPLF27dePH4AxcryFNuwOLJa4Ljw';
+    const MAX_FILE_SIZE_MB = 10;
+    
+    // Fungsi untuk mengunggah file
+    UPLOAD_INPUT.addEventListener('change', async (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const fileSizeMB = file.size / (1024 * 1024);
+        if (fileSizeMB > MAX_FILE_SIZE_MB) {
+            alert(`Ukuran file maksimal adalah ${MAX_FILE_SIZE_MB} MB. Silakan pilih file lain.`);
+            UPLOAD_INPUT.value = ''; // Reset input
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            alert('Mengunggah foto... Mohon tunggu.');
+            const response = await fetch(DISCORD_WEBHOOK_URL, {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (response.ok) {
+                alert('Foto berhasil diunggah! Terima kasih atas kontribusinya.');
+            } else {
+                const errorText = await response.text();
+                console.error('Gagal mengunggah foto:', errorText);
+                alert('Gagal mengunggah foto. Silakan coba lagi nanti.');
+            }
+        } catch (error) {
+            console.error('Terjadi kesalahan:', error);
+            alert('Terjadi kesalahan saat mengunggah. Pastikan URL webhook benar.');
+        }
+
+        UPLOAD_INPUT.value = ''; // Reset input setelah upload
+    });
+
+    // Theme Toggle
+    const THEME_TOGGLE = document.getElementById('themeToggle');
+    THEME_TOGGLE.addEventListener('click', () => {
+        const body = document.body;
+        const currentTheme = body.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        body.setAttribute('data-theme', newTheme);
+        THEME_TOGGLE.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+    });
+  </script>
+</body>
+</html>
