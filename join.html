@@ -1,1 +1,295 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Leintist Academy — Komunitas Weelife</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLPD7yE6fX3s6+3qH4yB5F4K4xXo+6pA6E5bL7b5jV2kI+5O65e7M5n6s7Z1n5c7y5n5l5M7y7Y7t5p5k5y5" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <style>
+    /* ========= Variables & Base ========= */
+    :root{
+      --bg: #070617;
+      --panel: rgba(8,10,20,0.6);
+      --card: #0b1220;
+      --accent-cyan: #00f0ff;
+      --accent-pink: #ff45d6;
+      --accent-amber: #f6b73b;
+      --muted: #9aa4b2;
+      --glass: rgba(255,255,255,0.03);
+      --glass-strong: rgba(255,255,255,0.06);
+    }
+    [data-theme="light"]{
+      --bg: linear-gradient(180deg,#f3f4f6,#eaeef6);
+      --panel: rgba(255,255,255,0.88);
+      --card: #ffffff;
+      --accent-cyan: #066a6a;
+      --accent-pink: #8b0066;
+      --accent-amber: #b7791f;
+      --muted: #374151;
+      --glass: rgba(0,0,0,0.04);
+      --glass-strong: rgba(0,0,0,0.06);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      background: var(--bg);
+      color:var(--muted);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+
+    /* ========= Background Visuals (NEXUS style) ========= */
+    .cyber-bg{position:fixed;inset:0;z-index:-10;overflow:hidden}
+    .cyber-gradient{
+      position:absolute;inset:-30% ;background:
+      radial-gradient(600px 400px at 10% 20%, rgba(0,240,255,0.09), transparent 12%),
+      radial-gradient(700px 500px at 90% 80%, rgba(255,69,214,0.06), transparent 12%),
+      radial-gradient(400px 300px at 60% 30%, rgba(246,183,59,0.04), transparent 12%);
+      filter: blur(40px);
+      animation: rotateGrad 30s linear infinite;
+    }
+    @keyframes rotateGrad {0%{transform:rotate(0)}50%{transform:rotate(180deg) scale(1.08)}100%{transform:rotate(360deg)}}
+
+    .matrix-rain{position:absolute;inset:0;pointer-events:none;opacity:0.12}
+    .matrix-column{position:absolute;top:-120vh;font-family:monospace;white-space:pre; font-size:12px;color:var(--accent-cyan);text-shadow:0 0 8px rgba(0,240,255,0.25);animation:matrixFall linear infinite}
+    @keyframes matrixFall{0%{transform:translateY(-120vh)}100%{transform:translateY(120vh)}}
+
+    .orb{position:fixed;border-radius:50%;filter:blur(80px);opacity:0.45;pointer-events:none;z-index:-5}
+    .orb1{width:360px;height:360px;background:var(--accent-cyan);left:-140px;top:6%}
+    .orb2{width:420px;height:420px;background:var(--accent-pink);right:-180px;bottom:6%}
+    .orb3{width:280px;height:280px;background:var(--accent-amber);left:50%;top:50%;transform:translate(-50%,-50%)}
+
+    .particles{position:fixed;inset:0;z-index:-8;pointer-events:none}
+    .particle{position:absolute;width:4px;height:4px;border-radius:50%;background:var(--accent-cyan);box-shadow:0 0 10px currentColor;opacity:0.7}
+
+    /* subtle grid */
+    .grid-overlay{position:fixed;inset:0;z-index:-9;pointer-events:none}
+    .grid-lines{position:absolute;inset:0;background-image:
+      linear-gradient(rgba(0,240,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,69,214,0.02) 1px, transparent 1px);background-size:60px 60px;opacity:0.28}
+
+    /* ========= Top Nav (glassmorphism) ========= */
+    nav.main-nav{
+      position:sticky;top:12px;margin:12px auto;max-width:1200px;padding:10px 14px;border-radius:14px;background:var(--panel);backdrop-filter:blur(10px);box-shadow:0 6px 30px rgba(0,0,0,0.45);display:flex;align-items:center;gap:12px;z-index:40; border:1px solid rgba(255,255,255,0.03)
+    }
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand .logo img{height: 56px; width: 56px; border-radius: 12px; object-fit: cover;}
+    .brand .title{font-family:Orbitron, sans-serif;color:var(--accent-amber);font-size:18px;letter-spacing:0.6px}
+    .nav-links{display:flex;gap:18px;align-items:center;margin-left:18px}
+    .nav-links a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:8px;font-weight:600;transition:all .18s}
+    .nav-links a:hover{color:var(--accent-cyan);text-shadow:0 0 12px rgba(0,240,255,0.08)}
+    .nav-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+    .icon-btn{background:transparent;border:1px solid rgba(255,255,255,0.03);padding:8px;border-radius:10px;cursor:pointer;color:var(--muted);transition:all .15s}
+    .icon-btn:hover{transform:translateY(-3px);box-shadow:0 6px 30px rgba(0,240,255,0.06);border-color:rgba(0,240,255,0.08)}
+    .cta-btn{background:linear-gradient(90deg,var(--accent-cyan),var(--accent-pink));color:#07101a;padding:10px 14px;border-radius:12px;font-weight:700;border:0;cursor:pointer;box-shadow:0 8px 30px rgba(0,240,255,0.12)}
+    .cta-btn:hover{transform:translateY(-3px)}
+
+    /* mobile menu */
+    .mobile-toggle{display:none}
+
+    /* ========= Layout Container ========= */
+    .container{max-width:1200px;margin:28px auto;padding:18px;position:relative;z-index:10}
+
+    /* Generic Card/Panel styling */
+    .panel-card {
+      background: var(--card);
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid var(--glass-strong);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      margin-bottom: 24px;
+    }
+
+    .panel-card h2 {
+        font-family: Orbitron, sans-serif;
+        color: var(--accent-cyan);
+        margin-bottom: 12px;
+    }
+
+    .panel-card h3 {
+        color: var(--accent-amber);
+        margin-top: 24px;
+        margin-bottom: 8px;
+    }
+
+    .panel-card p, .panel-card ul {
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 15px;
+    }
+    
+    .panel-card ul {
+        margin-left: 20px;
+        list-style-type: none;
+        padding: 0;
+    }
+    .panel-card li {
+        margin-bottom: 8px;
+        padding-left: 1.5em;
+        position: relative;
+    }
+    .panel-card li::before {
+        content: "»";
+        color: var(--accent-pink);
+        font-weight: bold;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    .social-links a {
+        background: var(--glass);
+        color: var(--accent-cyan);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        text-decoration: none;
+        transition: all .2s;
+    }
+    .social-links a:hover {
+        background: var(--glass-strong);
+        color: var(--accent-pink);
+        transform: translateY(-3px) scale(1.1);
+    }
+
+
+    /* footer small */
+    .footer-note{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        text-align: center;
+        margin: 28px 0 10px 0;
+        color: var(--muted);
+        font-size: 13px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255,255,255,0.03);
+    }
+    .footer-note .footer-links a {
+        color: var(--muted);
+        text-decoration: none;
+        margin: 0 10px;
+        transition: color .2s;
+    }
+    .footer-note .footer-links a:hover {
+        color: var(--accent-cyan);
+    }
+    
+    /* section title */
+    .section-title {
+        font-family: Orbitron, sans-serif;
+        color: var(--accent-pink);
+        font-size: 24px;
+        text-align: center;
+        margin: 40px 0 20px 0;
+    }
+
+    /* small screens */
+    @media (max-width:900px){
+      .nav-links{display:none}
+      .mobile-toggle{display:inline-flex}
+      nav.main-nav{padding:12px}
+    }
+  </style>
+</head>
+<body data-theme="dark">
+
+  <div class="cyber-bg" aria-hidden="true">
+    <div class="cyber-gradient"></div>
+    <div class="matrix-rain" id="matrixRain"></div>
+    <div class="grid-overlay"><div class="grid-lines"></div></div>
+    <div class="particles" id="particlesContainer"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+
+  <nav class="main-nav" role="navigation" aria-label="Main navigation">
+    <div class="brand" role="banner">
+      <div class="logo">
+        <img src="https://github.com/marcellnw/LA-Community/blob/main/IMG_20250809193906648.jpg?raw=true" alt="Leintist Academy Logo">
+      </div>
+      <div>
+        <div class="title">Leintist Academy</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px">Community — Weelife</div>
+      </div>
+    </div>
+
+    <div class="nav-links" role="menubar" aria-hidden="false">
+      <a href="index.html" role="menuitem">Beranda</a>
+      <a href="galeri.html" role="menuitem">Galeri</a>
+      <a href="events.html" role="menuitem">Events</a>
+      <a href="about.html" role="menuitem">Tentang</a>
+    </div>
+
+    <div class="nav-actions">
+      <button class="icon-btn" id="themeToggle" title="Toggle theme">🌙</button>
+      <a href="join.html" class="cta-btn">Join</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="panel-card">
+      <h2>Cara Bergabung dengan Komunitas LA Weelife</h2>
+      <p>Kami sangat senang Anda tertarik untuk menjadi bagian dari Leintist Academy! Mengikuti petualangan bersama kami di dunia Weelife sangat mudah. Ikuti langkah-langkah di bawah ini untuk bergabung:</p>
+      
+      <h3>1. Kirim Permintaan Pertemanan di Weelife</h3>
+      <p>Langkah pertama adalah menambahkan founder kami sebagai teman di dalam game Weelife. Cari nama-nama berikut dan kirimkan permintaan pertemanan Anda:</p>
+      <ul>
+        <li>**Founder:** `Marcellnw`</li>
+        <li>**Co-Founder:** `Nathania`</li>
+      </ul>
+      
+      <h3>2. Hubungi Kami Melalui Media Sosial</h3>
+      <p>Setelah mengirimkan permintaan, Anda bisa menghubungi kami melalui salah satu akun media sosial di bawah ini. Sampaikan bahwa Anda ingin bergabung dengan komunitas LA.</p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/marcellnw" target="_blank" title="Instagram Marcellnw"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@marcellnw_" target="_blank" title="TikTok Marcellnw"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.tiktok.com/@nathania920428" target="_blank" title="TikTok Nathania"><i class="fab fa-tiktok"></i></a>
+        </div>
+
+      <h3>3. Tunggu Konfirmasi</h3>
+      <p>Kami akan meninjau permintaan pertemanan dan pesan Anda. Jika semua sudah sesuai, kami akan segera mengundang Anda ke dalam komunitas kami di Weelife. Selamat bergabung!</p>
+    </div>
+  </main>
+
+  <div class="footer-note">
+    <div class="footer-links">
+        <a href="about.html">Tentang</a>
+        <a href="contact.html">Kontak</a>
+        <a href="#">Syarat dan Ketentuan</a>
+    </div>
+    <div>Leintist Academy • © <span id="year"></span></div>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const THEME_TOGGLE = document.getElementById('themeToggle');
+    THEME_TOGGLE.addEventListener('click', () => {
+        const body = document.body;
+        const currentTheme = body.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        body.setAttribute('data-theme', newTheme);
+        THEME_TOGGLE.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+    });
+  </script>
+</body>
+</html>
 
