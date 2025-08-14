@@ -6,7 +6,8 @@
   <title>Leintist Academy — Komunitas Weelife</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLPD7yE6fX3s6+3qH4yB5F4K4xXo+6pA6E5bL7b5jV2kI+5O65e7M5n6s7Z1n5c7y5n5l5M7y7Y7t5p5k5y5" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
   <style>
     /* ========= Variables & Base ========= */
     :root{
@@ -132,32 +133,52 @@
     .gallery-item:hover img{transform:scale(1.08)}
     .gallery-caption{position:absolute;left:12px;bottom:12px;padding:6px 10px;border-radius:8px;background:linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.52));color:#fff;font-size:13px}
     .tag-pill{position:absolute;right:12px;top:12px;background:rgba(0,0,0,0.35);padding:6px 8px;border-radius:8px;color:var(--muted);font-size:12px;border:1px solid rgba(255,255,255,0.02)}
+
+    /* ========= Social Media Cards ========= */
+    .social-cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 20px;
+    }
     .social-card {
-      padding: 18px;
-      border-radius: 12px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border: 1px solid rgba(255,255,255,0.03);
-      text-align: center;
-      transition: transform .3s, box-shadow .3s;
+        width: 180px; /* Lebar tetap untuk card yang lebih kecil */
+        padding: 15px;
+        border-radius: 12px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+        border: 1px solid rgba(255,255,255,0.03);
+        text-align: center;
+        transition: transform .3s, box-shadow .3s;
     }
     .social-card:hover {
       transform: translateY(-6px);
       box-shadow: 0 30px 60px rgba(0,0,0,0.45);
     }
     .social-card h3 {
-      font-family: Orbitron;
+      font-family: Inter, sans-serif;
+      font-size: 16px;
       color: var(--accent-amber);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
+    }
+    .social-card p {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 10px;
     }
     .social-card a {
       display: inline-block;
-      margin-top: 8px;
       padding: 6px 12px;
       border-radius: 8px;
       background: var(--glass);
       color: var(--accent-cyan);
       text-decoration: none;
-      font-size: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background .2s;
+    }
+    .social-card a:hover {
+        background: var(--glass-strong);
     }
 
     /* ========= Lightbox (modal) ========= */
@@ -180,7 +201,27 @@
     .nav-arrows.right{left:auto;right:12px}
 
     /* footer small */
-    .footer-note{text-align:center;margin:28px 0;color:var(--muted);font-size:13px}
+    .footer-note{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        text-align: center;
+        margin: 28px 0 10px 0;
+        color: var(--muted);
+        font-size: 13px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255,255,255,0.03);
+    }
+    .footer-note .footer-links a {
+        color: var(--muted);
+        text-decoration: none;
+        margin: 0 10px;
+        transition: color .2s;
+    }
+    .footer-note .footer-links a:hover {
+        color: var(--accent-cyan);
+    }
     
     /* section title */
     .section-title {
@@ -199,6 +240,7 @@
       .mobile-toggle{display:inline-flex}
       nav.main-nav{padding:12px}
       .gallery-grid { grid-template-columns: 1fr; }
+      .social-cards-container { justify-content: center; }
     }
   </style>
 </head>
@@ -232,7 +274,7 @@
       <a href="contact.html" role="menuitem">Kontak</a>
     </div>
 
-  
+    <div class="nav-actions">
       <button class="icon-btn" id="themeToggle" title="Toggle theme">🌙</button>
       <button class="icon-btn" id="shuffleBtn" title="Acak galeri">🔀</button>
       <a href="join.html" class="cta-btn" id="joinBtn">Join</a>
@@ -262,15 +304,14 @@
       <button class="filter-btn" data-filter="art">Karya</button>
 
       <div style="flex:1"></div>
-
-    
+    </div>
 
     <section class="gallery-grid" id="gallery" aria-live="polite"></section>
     
     <div style="margin: 40px 0;"></div>
 
     <h2 class="section-title">Sosial Media Member</h2>
-    <section class="gallery-grid">
+    <section class="social-cards-container">
       <div class="social-card">
         <h3>Dedy Zhee</h3>
         <p>Konten TikTok seputar game.</p>
@@ -318,7 +359,14 @@
 
     <section class="gallery-grid" id="storyGallery"></section>
 
-    <div class="footer-note">Leintist Academy • © <span id="year"></span></div>
+    <div class="footer-note">
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Terms of Service</a>
+        </div>
+        <div>Leintist Academy • © <span id="year"></span></div>
+    </div>
   </main>
 
   <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true">
@@ -363,7 +411,13 @@
     ];
     
     // Monthly story images
-
+    let storyImages = [
+      {id:10, src:'https://picsum.photos/seed/weelife10/1200/800', title:'Acara Festival Komunitas', tag:'event', desc:'Momen berharga saat festival komunitas berlangsung.'},
+      {id:11, src:'https://picsum.photos/seed/weelife11/1200/800', title:'Kumpul Santai di Kafe', tag:'meet', desc:'Ngobrol seru sambil ngopi bersama teman-teman.'},
+      {id:12, src:'https://picsum.photos/seed/weelife12/1200/800', title:'Desain Rumah Futuristik', tag:'art', desc:'Salah satu karya desain rumah terbaik dari member.'},
+      {id:13, src:'https://picsum.photos/seed/weelife13/1200/800', title:'Lomba Fashion Show', tag:'event', desc:'Para avatar menampilkan gaya terbaik mereka.'},
+      {id:14, src:'https://picsum.photos/seed/weelife14/1200/800', title:'Foto Bareng di Taman', tag:'meet', desc:'Kenangan indah saat berfoto di taman Weelife.'},
+    ];
 
     let currentList = images.slice();
     let activeIndex = 0; // index within currentList for lightbox
